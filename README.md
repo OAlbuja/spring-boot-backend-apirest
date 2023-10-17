@@ -12,7 +12,11 @@ Este proyecto fue desarrollado utilizando Spring Boot y SpEL para habilitar la a
 
 ![Diagrama del Framework Spring Boot](https://springframework.guru/wp-content/uploads/2015/04/spring-overview.png)
 
-### Explicación del Diagrama
+### Diagrama de Secuencia: Backend con Spring Boot y MySQL
+
+![Diagrama de Secuencia](https://showme.redstarplugin.com/d/d:20KsZDqt)
+
+#### Explicación del Diagrama
 
 El diagrama representa la estructura del sistema backend desarrollado con Spring Boot y SpEL, relacionando los componentes clave:
 
@@ -29,17 +33,13 @@ Este diseño de ingeniería garantiza una separación clara de responsabilidades
 Para poner en marcha el backend de la aplicación, se deben seguir estos pasos:
 
 1. Asegurarse de tener Java y Maven instalados en el sistema.
-
 2. Configurar una base de datos MySQL y ajustar la configuración de conexión en `src/main/resources/application.properties`.
-
 3. Ejecutar `mvn spring-boot:run` en la raíz del proyecto para iniciar el servidor de desarrollo.
-
 4. La API estará disponible en `http://localhost:8080/`. Se pueden utilizar herramientas como Postman o curl para interactuar con la API y realizar operaciones CRUD en clientes y productos.
 
 ## Pruebas
 
 - Se pueden ejecutar pruebas unitarias utilizando el marco de pruebas proporcionado por Spring Boot.
-
 - Para realizar pruebas de integración, se debe configurar una base de datos de prueba y ajustar la configuración de prueba en `src/test/resources/application.properties`.
 
 ## Obtener Más Ayuda

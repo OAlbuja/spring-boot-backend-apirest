@@ -23,7 +23,7 @@ public class Cliente implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
+	private String cedula;
 	private String nombre;
 	private String apellido;
 	private String email;
@@ -45,7 +45,15 @@ public class Cliente implements Serializable{
 		this.id = id;
 	}
 
-	public String getNombre() {
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+    
+    public String getNombre() {
 		return nombre;
 	}
 

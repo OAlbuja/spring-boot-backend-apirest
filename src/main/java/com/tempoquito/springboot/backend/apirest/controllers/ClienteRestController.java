@@ -47,6 +47,7 @@ public class ClienteRestController {
 	public Cliente update(@RequestBody Cliente cliente, @PathVariable Long id ) {
 		Cliente clienteActual = clienteService.findById(id);
 		
+		clienteActual.setCedula(cliente.getCedula());
 		clienteActual.setApellido(cliente.getApellido());
 		clienteActual.setNombre(cliente.getNombre());
 		clienteActual.setEmail(cliente.getEmail());

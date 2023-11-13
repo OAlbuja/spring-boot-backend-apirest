@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE `clientes` (
   `create_at` date DEFAULT NULL,
   `id` bigint NOT NULL AUTO_INCREMENT,
+  `cedula` varchar(255) DEFAULT NULL,
   `apellido` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
@@ -38,7 +39,17 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES ('2018-01-01',1,'Guzmán','profesor@tempoquito.com','Andres'),('2021-03-12',4,'Rodríguez','sofia@pagina.com','Sofía'),('2022-07-08',5,'Gómez','carlos@gomez.com','Carlos'),('2023-05-05',6,'Sánchez','ana@sanchez.org','Ana'),('2021-11-11',7,'Mora','luis@mora.net','Luis'),('2020-09-09',8,'Vargas','elena@vargas.com','Elena'),('2019-04-04',9,'Ortiz','oscar@ortiz.com','Oscar'),('2018-12-12',10,'Castro','irene@castro.com','Irene'),('2023-10-16',11,'Pazmiño','josepazmiño@gmail.com','Jose'),('2023-10-16',12,'Albuja','oalbuja@udlanet.com','Joaquin'),('2023-10-17',13,'Mera','merita@gmail.com','Juan');
+INSERT INTO `clientes` (`create_at`, `id`, `cedula`, `apellido`, `email`, `nombre`) VALUES
+('2018-01-01', 1, '1723456789', 'Guzmán', 'profesor@tempoquito.com', 'Andres'),
+('2021-03-12', 4, '1756784321', 'Rodríguez', 'sofia@pagina.com', 'Sofía'),
+('2022-07-08', 5, '1712345678', 'Gómez', 'carlos@gomez.com', 'Carlos'),
+('2023-05-05', 6, '1723456780', 'Sánchez', 'ana@sanchez.org', 'Ana'),
+('2021-11-11', 7, '1723456781', 'Mora', 'luis@mora.net', 'Luis'),
+('2020-09-09', 8, '1723456782', 'Vargas', 'elena@vargas.com', 'Elena'),
+('2019-04-04', 9, '1723456783', 'Ortiz', 'oscar@ortiz.com', 'Oscar'),
+('2018-12-12', 10, '1723456784', 'Castro', 'irene@castro.com', 'Irene'),
+('2023-10-16', 11, '1723456785', 'Pazmiño', 'josepazmiño@gmail.com', 'Jose'),
+('2023-10-16', 12, '1723456786', 'Albuja', 'oalbuja@udlanet.com', 'Joaquin');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

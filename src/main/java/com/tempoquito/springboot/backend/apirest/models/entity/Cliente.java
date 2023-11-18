@@ -2,6 +2,7 @@ package com.tempoquito.springboot.backend.apirest.models.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +13,7 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-
+import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -27,10 +28,19 @@ public class Cliente implements Serializable{
 	private String nombre;
 	private String apellido;
 	private String email;
+	 @Column(name = "rol")
+	    private String rol;
 	
 	@Column (name="create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
+	
+	@OneToMany(mappedBy = "cliente1")
+    private List<Match> matchesAsCliente1;
+
+    @OneToMany(mappedBy = "cliente2")
+    private List<Match> matchesAsCliente2;
+	
 	
 	@PrePersist
 	public void prePersist() {
@@ -76,6 +86,14 @@ public class Cliente implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
 
 	public Date getCreateAt() {
 		return createAt;
@@ -84,6 +102,22 @@ public class Cliente implements Serializable{
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
+	
+	public List<Match> getMatchesAsCliente1() {
+        return matchesAsCliente1;
+    }
+
+    public void setMatchesAsCliente1(List<Match> matchesAsCliente1) {
+        this.matchesAsCliente1 = matchesAsCliente1;
+    }
+
+    public List<Match> getMatchesAsCliente2() {
+        return matchesAsCliente2;
+    }
+
+    public void setMatchesAsCliente2(List<Match> matchesAsCliente2) {
+        this.matchesAsCliente2 = matchesAsCliente2;
+    }
 	
 	private static final long serialVersionUID = 1L;
 }

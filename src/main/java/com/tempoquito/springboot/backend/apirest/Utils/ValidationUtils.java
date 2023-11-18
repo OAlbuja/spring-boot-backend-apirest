@@ -1,5 +1,8 @@
 package com.tempoquito.springboot.backend.apirest.Utils;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 public class ValidationUtils {
 
     /**
@@ -8,7 +11,12 @@ public class ValidationUtils {
      * @return Boolean
      */
     public static boolean isValidCI(String ci) {
-        int total = 0;
+         	
+    	if (ci == null || ci.length() != 10) {
+            return false;
+        }
+    	
+    	int total = 0;
         int individual;
         boolean isNumeric = true;
 
@@ -44,4 +52,20 @@ public class ValidationUtils {
 
         return false;
     }
+    
+    public static boolean isValidEmail(String email) {
+        String emailRegex = "^\\w+([.-_+]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,10})+$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+    
+    public static boolean isValidName(String name) {
+        return name != null && !name.trim().isEmpty() && !name.contains(" ");
+    }
+
+    public static boolean isValidSurname(String surname) {
+        return surname != null && !surname.trim().isEmpty() && !surname.contains(" ");
+    }
+
 }

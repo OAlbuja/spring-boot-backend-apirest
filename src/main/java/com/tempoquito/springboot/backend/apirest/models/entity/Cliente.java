@@ -28,7 +28,8 @@ public class Cliente implements Serializable{
 	private String nombre;
 	private String apellido;
 	private String email;
-	 @Column(name = "rol")
+	
+	@Column(name = "rol")
 	    private String rol;
 	
 	@Column (name="create_at")

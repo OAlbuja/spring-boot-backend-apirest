@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.tempoquito.springboot.backend.apirest.models.dto.MatchDTO;
 import com.tempoquito.springboot.backend.apirest.models.entity.Match;
 import com.tempoquito.springboot.backend.apirest.models.services.IMatchService;
 
@@ -18,45 +19,52 @@ public class MatchController {
 
     // Obtener todos los matches
     @GetMapping("/matches")
-    public List<Match> index() {
+    public List<MatchDTO> index() {
         return matchService.findAll();
     }
 
     // Obtener un match por ID
     @GetMapping("/matches/{id}")
     public ResponseEntity<?> show(@PathVariable Long id) {
-        Match match = matchService.findById(id);
-        if (match == null) {
+        MatchDTO matchDTO = matchService.findById(id);
+        if (matchDTO == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(match, HttpStatus.OK);
+        return new ResponseEntity<>(matchDTO, HttpStatus.OK);
     }
 
     // Crear un nuevo match
     @PostMapping("/matches")
-    public ResponseEntity<?> create(@RequestBody Match match) {
-        Match matchCreated = matchService.save(match);
-        return new ResponseEntity<>(matchCreated, HttpStatus.CREATED);
+    public ResponseEntity<?> create(@RequestBody MatchDTO matchDTO) {
+        MatchDTO matchCreatedDTO = matchService.save(matchDTO);
+        return new ResponseEntity<>(matchCreatedDTO, HttpStatus.CREATED);
     }
 
     // Actualizar un match existente
     @PutMapping("/matches/{id}")
-    public ResponseEntity<?> update(@RequestBody Match match, @PathVariable Long id) {
-        Match currentMatch = matchService.findById(id);
-        if (currentMatch == null) {
+    public ResponseEntity<?> update(@RequestBody MatchDTO matchDTO, @PathVariable Long id) {
+        MatchDTO currentMatchDTO = matchService.findById(id);
+        if (currentMatchDTO == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        // Actualizar los datos del match aquí
+        // Actualizar los datos del match
+        currentMatchDTO.setClienteID1(matchDTO.getClienteID1());
+        currentMatchDTO.setClienteNombre1(matchDTO.getClienteNombre1());
+        currentMatchDTO.setClienteId2(matchDTO.getClienteId2());
+        currentMatchDTO.setClienteNombre2(matchDTO.getClienteNombre2());
+        currentMatchDTO.setFechaMatch(matchDTO.getFechaMatch());
+        currentMatchDTO.setEstado(matchDTO.getEstado());
+        
         // Por ejemplo: currentMatch.setEstado(match.getEstado());
-        Match matchUpdated = matchService.save(currentMatch);
-        return new ResponseEntity<>(matchUpdated, HttpStatus.OK);
+        MatchDTO matchUpdatedDTO = matchService.save(currentMatchDTO);
+        return new ResponseEntity<>(matchUpdatedDTO, HttpStatus.OK);
     }
 
     // Eliminar un match
     @DeleteMapping("/matches/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        Match match = matchService.findById(id);
-        if (match == null) {
+        MatchDTO matchDTO = matchService.findById(id);
+        if (matchDTO == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         matchService.delete(id);

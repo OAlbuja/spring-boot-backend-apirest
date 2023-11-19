@@ -3,11 +3,13 @@
 package com.tempoquito.springboot.backend.apirest.models.services;
 
 import java.util.List;
-import com.tempoquito.springboot.backend.apirest.models.entity.Match;
+
+import com.tempoquito.springboot.backend.apirest.models.dto.MatchDTO;
+
 
 public interface IMatchService {
-    List<Match> findAll();
-    Match findById(Long id);
-    Match save(Match match);
+    List<MatchDTO> findAll();
+    MatchDTO findById(Long id);
+    MatchDTO save(MatchDTO matchDTO);
     void delete(Long id);
 }

@@ -4,12 +4,13 @@ package com.tempoquito.springboot.backend.apirest.models.services;
 
 import java.util.List;
 
-import com.tempoquito.springboot.backend.apirest.models.entity.Cliente;
+import com.tempoquito.springboot.backend.apirest.models.dto.ClienteDTO;
+
 
 public interface IClienteService {
-
-	public List<Cliente> findAll();
-	public Cliente findById(Long id);
-	public Cliente save (Cliente cliente);
-	public void delete (Long id);
+    List<ClienteDTO> findAll();
+    ClienteDTO findById(Long id);
+    ClienteDTO save(ClienteDTO clienteDTO);
+    void delete(Long id);
 }
+

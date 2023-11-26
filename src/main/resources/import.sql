@@ -9,3 +9,4 @@ INSERT INTO clientes (cedula, nombre, apellido, email, rol, create_at) VALUES ('
 INSERT INTO clientes (cedula, nombre, apellido, email, rol, create_at) VALUES ('1720012352', 'Elena', 'Vargas', 'elena@vargas.com', 'USER', '2020-09-09');
 INSERT INTO clientes (cedula, nombre, apellido, email, rol, create_at) VALUES ('1720012353', 'Oscar', 'Ortiz', 'oscar@ortiz.com', 'USER', '2019-04-04');
 INSERT INTO clientes (cedula, nombre, apellido, email, rol, create_at) VALUES ('1720012354', 'Irene', 'Castro', 'irene@castro.com', 'USER', '2018-12-12');
+INSERT INTO clientes (cedula, nombre, apellido, email, rol, create_at) VALUES ('1721544045', 'Joaquin', 'Albuja', 'oa@gmail.com', 'ADMIN', '2023-12-12');

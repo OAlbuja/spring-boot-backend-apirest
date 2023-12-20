@@ -8,7 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.tempoquito.springboot.backend.apirest.models.dao.IMatchDao;
+import com.tempoquito.springboot.backend.apirest.models.dao.MatchRepository;
 import com.tempoquito.springboot.backend.apirest.models.dto.MatchDTO;
 import com.tempoquito.springboot.backend.apirest.models.entity.Match;
 
@@ -16,7 +16,7 @@ import com.tempoquito.springboot.backend.apirest.models.entity.Match;
 public class MatchServiceImpl implements IMatchService {
 
     @Autowired
-    private IMatchDao matchDao;
+    private MatchRepository matchDao;
     
     @Autowired
     private ModelMapper modelMapper;

@@ -10,10 +10,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "cliente_intereses")
-public class ClienteInteres implements Serializable{
+public class ClienteInteres implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,40 +26,42 @@ public class ClienteInteres implements Serializable{
     @JoinColumn(name = "interes_id")
     private Interes interes;
 
-    @Column
+    // Agregado el campo de ponderación
+    @Column(name = "ponderacion")
     private Integer ponderacion;
 
-	public Long getId() {
-		return id;
-	}
+    // Getters y setters
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Cliente getCliente() {
-		return cliente;
-	}
+    public Cliente getCliente() {
+        return cliente;
+    }
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
-	public Interes getInteres() {
-		return interes;
-	}
+    public Interes getInteres() {
+        return interes;
+    }
 
-	public void setInteres(Interes interes) {
-		this.interes = interes;
-	}
+    public void setInteres(Interes interes) {
+        this.interes = interes;
+    }
 
-	public Integer getPonderacion() {
-		return ponderacion;
-	}
+    public Integer getPonderacion() {
+        return ponderacion;
+    }
 
-	public void setPonderacion(Integer ponderacion) {
-		this.ponderacion = ponderacion;
-	}
+    public void setPonderacion(Integer ponderacion) {
+        this.ponderacion = ponderacion;
+    }
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 }

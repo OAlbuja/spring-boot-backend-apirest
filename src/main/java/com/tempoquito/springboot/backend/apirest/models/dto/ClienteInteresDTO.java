@@ -33,6 +33,18 @@ public class ClienteInteresDTO {
 	public void setPonderacion(Integer ponderacion) {
 		this.ponderacion = ponderacion;
 	}
+	
+	// Sobrescribe el método toString()
+    @Override
+    public String toString() {
+        return "ClienteInteresDTO{" +
+                "id=" + id +
+                ", clienteId=" + clienteId +
+                ", interesId=" + interesId +
+                ", ponderacion=" + ponderacion +
+                '}';
+    }
+	
 
    
 }

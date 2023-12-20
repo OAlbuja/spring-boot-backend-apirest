@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.tempoquito.springboot.backend.apirest.models.services.IClienteInteresService;
+import com.tempoquito.springboot.backend.apirest.models.services.KNNService;
+import com.tempoquito.springboot.backend.apirest.models.dto.ClienteDistanciaDTO;
 import com.tempoquito.springboot.backend.apirest.models.dto.ClienteInteresDTO;
 
 
@@ -15,7 +17,15 @@ public class ClienteInteresRestController {
 
     @Autowired
     private IClienteInteresService clienteInteresService;
+    
+    @Autowired
+    private KNNService knnService;
 
+    @GetMapping("/cliente-intereses/{clienteId}/recomendaciones")
+    public List<ClienteDistanciaDTO> obtenerRecomendaciones(@PathVariable Long clienteId, @RequestParam int k) {
+        return knnService.encontrarVecinosCercanos(clienteId, k);
+    }
+    
     @GetMapping("/cliente-intereses")
     public List<ClienteInteresDTO> index() {
         return clienteInteresService.findAll();

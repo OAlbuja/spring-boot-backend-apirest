@@ -3,9 +3,10 @@ package com.tempoquito.springboot.backend.apirest.models.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Set;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,7 +15,9 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.OneToMany;
-
+import jakarta.persistence.ManyToMany; 
+import jakarta.persistence.JoinTable; 
+import jakarta.persistence.JoinColumn; 
 
 @Entity
 @Table(name ="clientes")
@@ -23,14 +26,22 @@ public class Cliente implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private Long id;	
 	private String cedula;
 	private String nombre;
 	private String apellido;
 	private String email;
+	private Integer semestreCursado;
 	
-	@Column(name = "rol")
-	    private String rol;
+	// Cambia el campo 'rol' a una colección de roles
+    @ManyToMany
+    @JoinTable(
+        name = "cliente_roles", 
+        joinColumns = @JoinColumn(name = "cliente_id"), 
+        inverseJoinColumns = @JoinColumn(name = "rol_id")
+    )
+    private Set<Rol> roles;
+	
 	
 	@Column (name="create_at")
 	@Temporal(TemporalType.DATE)
@@ -41,8 +52,19 @@ public class Cliente implements Serializable{
 
     @OneToMany(mappedBy = "cliente2")
     private List<Match> matchesAsCliente2;
+    
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
+    private List<ClienteInteres> clienteIntereses;
 	
-	
+    // Getters y setters para clienteIntereses
+    public List<ClienteInteres> getClienteIntereses() {
+        return clienteIntereses;
+    }
+
+    public void setClienteIntereses(List<ClienteInteres> clienteIntereses) {
+        this.clienteIntereses = clienteIntereses;
+    }
+    
 	@PrePersist
 	public void prePersist() {
 		createAt = new Date();		
@@ -88,12 +110,13 @@ public class Cliente implements Serializable{
 		this.email = email;
 	}
 	
-	public String getRol() {
-        return rol;
+    // Getters y setters para roles
+    public Set<Rol> getRoles() {
+        return roles;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
     }
 
 	public Date getCreateAt() {
@@ -120,5 +143,13 @@ public class Cliente implements Serializable{
         this.matchesAsCliente2 = matchesAsCliente2;
     }
 	
+    public Integer getSemestreCursado() {
+        return semestreCursado;
+    }
+
+    public void setSemestreCursado(Integer semestreCursado) {
+        this.semestreCursado = semestreCursado;
+    }
+    
 	private static final long serialVersionUID = 1L;
 }

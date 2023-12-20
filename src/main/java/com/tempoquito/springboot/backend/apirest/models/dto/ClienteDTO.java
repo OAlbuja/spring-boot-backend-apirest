@@ -1,6 +1,9 @@
 package com.tempoquito.springboot.backend.apirest.models.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 public class ClienteDTO {
     
@@ -9,8 +12,25 @@ public class ClienteDTO {
     private String nombre;
     private String apellido;
     private String email;
-    private String rol;
+    private Set<String> roles;
     private Date createAt;
+    private Integer semestreCursado;
+    private List<ClienteInteresDTO> clienteInteresesDTO;
+    
+    
+    public ClienteDTO() {
+        this.clienteInteresesDTO = new ArrayList<>();
+    }
+
+    // Getters y setters para clienteInteresesDTO
+    public List<ClienteInteresDTO> getClienteInteresesDTO() {
+        return clienteInteresesDTO;
+    }
+
+    public void setClienteInteresesDTO(List<ClienteInteresDTO> clienteInteresesDTO) {
+        this.clienteInteresesDTO = clienteInteresesDTO;
+    }
+    
 	public Long getId() {
 		return id;
 	}
@@ -41,11 +61,12 @@ public class ClienteDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getRol() {
-		return rol;
+
+	public Set<String> getRoles() {
+		return roles;
 	}
-	public void setRol(String rol) {
-		this.rol = rol;
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
 	}
 	public Date getCreateAt() {
 		return createAt;
@@ -53,6 +74,27 @@ public class ClienteDTO {
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
+	public Integer getSemestreCursado() {
+		return semestreCursado;
+	}
+	public void setSemestreCursado(Integer semestreCursado) {
+		this.semestreCursado = semestreCursado;
+	}
+
+	@Override
+	public String toString() {
+		return "ClienteDTO{" +
+				"id=" + id + 
+				", cedula=" + cedula + 
+				", nombre=" + nombre + 
+				", apellido=" + apellido + 
+				", email=" + email + 
+				", roles=" + roles + 
+				", createAt=" + createAt + 
+				", semestreCursado=" + semestreCursado + 
+				", clienteInteresesDTO=" + clienteInteresesDTO;
+	}
 	
     
+	
 }

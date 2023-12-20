@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.tempoquito.springboot.backend.apirest.models.dao.IInteresDao;
+import com.tempoquito.springboot.backend.apirest.models.dao.InteresRepository;
 import com.tempoquito.springboot.backend.apirest.models.dto.InteresDTO;
 import com.tempoquito.springboot.backend.apirest.models.entity.Interes;
 
@@ -14,11 +14,17 @@ import com.tempoquito.springboot.backend.apirest.models.entity.Interes;
 public class InteresServiceImpl implements IInteresService {
 
 	@Autowired
-    private IInteresDao interesDao;
+    private InteresRepository interesDao;
 
     @Autowired
     private ModelMapper modelMapper;
 
+    @Override
+    @Transactional(readOnly = true)
+    public long countTotalIntereses() {
+        return interesDao.count();
+    }  
+    
     @Override
     @Transactional(readOnly = true)
     public List<InteresDTO> findAll() {

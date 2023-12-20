@@ -5,6 +5,7 @@ package com.tempoquito.springboot.backend.apirest.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 //import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 import com.tempoquito.springboot.backend.apirest.models.services.IClienteService;
+import com.tempoquito.springboot.backend.apirest.models.services.KNNService;
 import com.tempoquito.springboot.backend.apirest.Utils.ValidationUtils;
 import com.tempoquito.springboot.backend.apirest.exceptions.InvalidCedulaException;
 import com.tempoquito.springboot.backend.apirest.exceptions.InvalidNameException;
@@ -28,6 +31,8 @@ import com.tempoquito.springboot.backend.apirest.exceptions.InvalidSurnameExcept
 import com.tempoquito.springboot.backend.apirest.exceptions.InvalidEmailException;
 
 import com.tempoquito.springboot.backend.apirest.models.dto.ClienteDTO;
+import com.tempoquito.springboot.backend.apirest.models.dto.ClienteDistanciaDTO;
+
 
 
 //@CrossOrigin(origins = { "http://localhost:4200" }) // Cores configurado.
@@ -37,15 +42,38 @@ public class ClienteRestController {
 
 	@Autowired
 	private IClienteService clienteService;
+	
+//	@Autowired
+//    private KNNService knnService;
+//	
+//	@Autowired
+//    private ModelMapper modelMapper; // Inyectar ModelMapper
 
+//	@GetMapping("/clientes/{clienteId}/recomendaciones")
+//	public List<ClienteDistanciaDTO> obtenerRecomendaciones(@PathVariable Long clienteId, @RequestParam int k) {
+//	    ClienteDTO clienteDTO = clienteService.findById(clienteId);
+//	    if (clienteDTO != null) {
+//	        return knnService.encontrarVecinosCercanos(clienteDTO, k);
+//	    } else {
+//	        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente no encontrado con ID: " + clienteId);
+//	    }
+//	}
+	
 	@GetMapping("/clientes")
 	public List<ClienteDTO> index() {
 		return clienteService.findAll();
 	}
 
+//	@GetMapping("/clientes/{id}")
+//	public ClienteDTO show(@PathVariable Long id) {
+//		return clienteService.findById(id);
+//	}
+	
 	@GetMapping("/clientes/{id}")
 	public ClienteDTO show(@PathVariable Long id) {
-		return clienteService.findById(id);
+	    ClienteDTO clienteDTO = clienteService.findById(id);
+//	    System.out.println("Cliente obtenido: " + clienteDTO); // Log para depuración
+	    return clienteDTO;
 	}
 
 	@PostMapping("/clientes")
@@ -102,7 +130,7 @@ public class ClienteRestController {
 		clienteActual.setApellido(clienteDTO.getApellido());
 		clienteActual.setNombre(clienteDTO.getNombre());
 		clienteActual.setEmail(clienteDTO.getEmail());
-		clienteActual.setRol(clienteDTO.getRol());
+		clienteActual.setRoles(clienteDTO.getRoles());
 
 		return clienteService.save(clienteActual);
 	}

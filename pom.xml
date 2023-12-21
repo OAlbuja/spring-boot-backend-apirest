@@ -9,13 +9,13 @@
 		<version>3.1.4</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.tempoquito.springboot.backend.apirest</groupId>
+	<groupId>com.udla.springboot.backend.apirest</groupId>
 	<artifactId>spring-boot-backend-apirest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-backend-apirest</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

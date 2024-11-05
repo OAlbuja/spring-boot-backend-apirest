@@ -6,6 +6,7 @@ jobs:
       - image: cimg/openjdk:17.0
     steps:
       - checkout
+      - run: chmod +x ./mvnw
       - run: ./mvnw clean install
 
   test_general:
@@ -13,6 +14,7 @@ jobs:
       - image: cimg/openjdk:17.0
     steps:
       - checkout
+      - run: chmod +x ./mvnw
       - run: ./mvnw test -Dtest=SpringBootBackendApirestApplicationTests
 
   test_service:
@@ -20,6 +22,7 @@ jobs:
       - image: cimg/openjdk:17.0
     steps:
       - checkout
+      - run: chmod +x ./mvnw
       - run: ./mvnw test -Dtest=ClienteServiceImplTest
 
   lint:
@@ -27,6 +30,7 @@ jobs:
       - image: cimg/openjdk:17.0
     steps:
       - checkout
+      - run: chmod +x ./mvnw
       - run: ./mvnw checkstyle:check
 
   package:
@@ -34,6 +38,7 @@ jobs:
       - image: cimg/openjdk:17.0
     steps:
       - checkout
+      - run: chmod +x ./mvnw
       - run: ./mvnw clean package
 
 workflows:

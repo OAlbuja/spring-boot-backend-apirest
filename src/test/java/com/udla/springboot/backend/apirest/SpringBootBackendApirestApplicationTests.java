@@ -1,4 +1,4 @@
-package com.tempoquito.springboot.backend.apirest;
+package com.udla.springboot.backend.apirest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

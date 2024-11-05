@@ -1,0 +1,57 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:17-jdk
+    steps:
+      - checkout
+      - run: ./mvnw clean install
+
+  test_general:
+    docker:
+      - image: circleci/openjdk:17-jdk
+    steps:
+      - checkout
+      - run: ./mvnw test -Dtest=SpringBootBackendApirestApplicationTests
+
+  test_service:
+    docker:
+      - image: circleci/openjdk:17-jdk
+    steps:
+      - checkout
+      - run: ./mvnw test -Dtest=ClienteServiceImplTest
+
+  lint:
+    docker:
+      - image: circleci/openjdk:17-jdk
+    steps:
+      - checkout
+      - run: ./mvnw checkstyle:check
+
+  package:
+    docker:
+      - image: circleci/openjdk:17-jdk
+    steps:
+      - checkout
+      - run: ./mvnw clean package
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test_general:
+          requires:
+            - build
+      - test_service:
+          requires:
+            - build
+      - lint:
+          requires:
+            - build
+      - package:
+          requires:
+            - test_general
+            - test_service
+            - lint

@@ -10,6 +10,7 @@ import com.udla.springboot.backend.apirest.dto.ClienteDTO;
 import com.udla.springboot.backend.apirest.entity.Cliente;
 import com.udla.springboot.backend.apirest.repositories.ClienteRepository;
 import com.udla.springboot.backend.apirest.services.ClienteServiceImpl;
+import com.udla.springboot.backend.apirest.services.IClienteInteresService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,9 @@ public class ClienteServiceImplTest {
 
     @Mock
     private ModelMapper modelMapper;
+
+    @Mock
+    private IClienteInteresService clienteInteresService; // Agregar el mock de clienteInteresService
 
     @InjectMocks
     private ClienteServiceImpl clienteService;
@@ -48,15 +52,20 @@ public class ClienteServiceImplTest {
         clienteDTO.setId(clienteId);
         clienteDTO.setNombre("Juan");
 
+        // Configurar comportamiento de mocks
         when(clienteRepository.findById(clienteId)).thenReturn(Optional.of(cliente));
         when(modelMapper.map(cliente, ClienteDTO.class)).thenReturn(clienteDTO);
+        when(clienteInteresService.findInteresesByClienteId(clienteId)).thenReturn(null); // Configurar mock de clienteInteresService
 
+        // Ejecutar el método de prueba
         ClienteDTO result = clienteService.findById(clienteId);
 
+        // Verificar resultados
         assertNotNull(result);
         assertEquals(clienteId, result.getId());
         assertEquals("Juan", result.getNombre());
 
+        // Verificar interacciones
         verify(clienteRepository, times(1)).findById(clienteId);
     }
 }

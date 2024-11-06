@@ -5,6 +5,9 @@ jobs:
     docker:
       - image: cimg/openjdk:17.0
       - image: circleci/mysql:5.7  # Contenedor MySQL
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: testdb
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/testdb
       SPRING_DATASOURCE_USERNAME: root
@@ -12,15 +15,15 @@ jobs:
     steps:
       - checkout
       - run: chmod +x ./mvnw
-      - run: |
-          # Crear la base de datos
-          echo "CREATE DATABASE IF NOT EXISTS testdb;" | mysql -u root -proot
       - run: ./mvnw clean install
 
   test_general:
     docker:
       - image: cimg/openjdk:17.0
       - image: circleci/mysql:5.7  # Contenedor MySQL
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: testdb
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/testdb
       SPRING_DATASOURCE_USERNAME: root
@@ -34,6 +37,9 @@ jobs:
     docker:
       - image: cimg/openjdk:17.0
       - image: circleci/mysql:5.7  # Contenedor MySQL
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: testdb
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/testdb
       SPRING_DATASOURCE_USERNAME: root

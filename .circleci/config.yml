@@ -4,6 +4,14 @@ jobs:
   build:
     docker:
       - image: cimg/openjdk:17.0
+      - image: circleci/mysql:5.7  # Contenedor MySQL
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: testdb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/testdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
     steps:
       - checkout
       - run: chmod +x ./mvnw
@@ -12,6 +20,14 @@ jobs:
   test_general:
     docker:
       - image: cimg/openjdk:17.0
+      - image: circleci/mysql:5.7  # Contenedor MySQL
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: testdb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/testdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
     steps:
       - checkout
       - run: chmod +x ./mvnw
@@ -20,6 +36,14 @@ jobs:
   test_service:
     docker:
       - image: cimg/openjdk:17.0
+      - image: circleci/mysql:5.7  # Contenedor MySQL
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: testdb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/testdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
     steps:
       - checkout
       - run: chmod +x ./mvnw

@@ -4,14 +4,6 @@ jobs:
   build:
     docker:
       - image: cimg/openjdk:17.0
-      - image: circleci/mysql:5.7  # Contenedor MySQL
-        environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: testdb
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/testdb
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
     steps:
       - checkout
       - run: chmod +x ./mvnw
@@ -20,42 +12,20 @@ jobs:
   test_general:
     docker:
       - image: cimg/openjdk:17.0
-      - image: circleci/mysql:5.7  # Contenedor MySQL
-        environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: testdb
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/testdb
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+    parallelism: 2  # Divide las pruebas en 2 contenedores
     steps:
       - checkout
       - run: chmod +x ./mvnw
-      - run: ./mvnw test -Dtest=SpringBootBackendApirestApplicationTests
+      - run: ./mvnw test -Dtest=$(circleci tests split --split-by=timings)
 
   test_service:
     docker:
       - image: cimg/openjdk:17.0
-      - image: circleci/mysql:5.7  # Contenedor MySQL
-        environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: testdb
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/testdb
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+    parallelism: 2  # Divide las pruebas en 2 contenedores
     steps:
       - checkout
       - run: chmod +x ./mvnw
-      - run: ./mvnw test -Dtest=ClienteServiceImplTest
-
-  package:
-    docker:
-      - image: cimg/openjdk:17.0
-    steps:
-      - checkout
-      - run: chmod +x ./mvnw
-      - run: ./mvnw clean package -DskipTests
+      - run: ./mvnw test -Dtest=$(circleci tests split --split-by=timings)
 
   dependency-check:
     docker:
@@ -64,6 +34,14 @@ jobs:
       - checkout
       - run: chmod +x ./mvnw
       - run: ./mvnw org.owasp:dependency-check-maven:check
+
+  package:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
+      - run: chmod +x ./mvnw
+      - run: ./mvnw clean package -DskipTests
 
 workflows:
   version: 2
@@ -76,10 +54,11 @@ workflows:
       - test_service:
           requires:
             - build
+      - dependency-check:
+          requires:
+            - build
       - package:
           requires:
             - test_general
             - test_service
-      - dependency-check:
-          requires:
-            - build
+            - dependency-check

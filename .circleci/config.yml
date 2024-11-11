@@ -86,3 +86,13 @@ workflows:
             - test_general
             - test_service
             - dependency-check
+
+notifications:
+  - when: always  # Envía la notificación siempre que se complete un workflow
+    branches:
+      only:
+        - main  # Solo para la rama principal
+    email:
+      recipients:
+        - oxar.oa@gmail.com  # Correo electrónico del destinatario
+
